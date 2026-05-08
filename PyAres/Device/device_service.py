@@ -222,7 +222,7 @@ class AresDeviceService:
                description: str, 
                version: str, 
                use_localhost: bool = True, 
-               port: int = 7100):
+               port: int = 7101):
     """
     Initializes the AresDeviceService
     
