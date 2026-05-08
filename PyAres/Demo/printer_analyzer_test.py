@@ -13,6 +13,8 @@ def analyze(request: AnalysisRequest) -> Analysis:
     if not isinstance(print_speed, float):
         print("Print Speed was not a float")
         print_speed = 0.0
+    
+
     if not isinstance(z_height, float):
         print("Z Height was not a float")
         z_height = 5.0
@@ -23,7 +25,7 @@ def analyze(request: AnalysisRequest) -> Analysis:
     print(f"Temperature: {temperature} \n Print Speed: {print_speed} \n",
           f"Z_Height: {z_height} \n Pressure: {pressure}")
 
-    analysis = Analysis(result=temperature)
+    analysis = Analysis(result=((temperature + print_speed)/4))
     return analysis
 
 
