@@ -88,59 +88,91 @@ if __name__ == "__main__":
 
     # 3. Define Set Commands:
     # This schema tells ARES to draw a Number Input box in the UI
-    input_schema = [
-        { "temp": DeviceSchemaEntry(AresDataType.NUMBER, "Target Temperature", "Celsius") },
-        { "speed": DeviceSchemaEntry(AresDataType.NUMBER, "Print Speed", "mm/min") },
-        { "z_height": DeviceSchemaEntry(AresDataType.NUMBER, "Z Height", "mm") },
-        { "pressure": DeviceSchemaEntry(AresDataType.NUMBER, "Pressure", "kPa") }
-    ]
-
-    # Create a list of command descriptors
-    cmds = []
-    for i in range(4):
-        cmd = DeviceCommandDescriptor(
-                f"Set {str(list(input_schema[i].keys())[0])}", 
-                f"Sets the printer {str(list(input_schema[i].keys())[0])}", 
-                input_schema[i], 
-                {} # No output expected
-            )
-        cmds.append(cmd)
-
-    # Add the new commands to the device's frontend.
-    service.add_new_command(cmds[0], myprinter.set_temperature)
-    service.add_new_command(cmds[1], myprinter.set_print_speed)
-    service.add_new_command(cmds[2], myprinter.set_z_height)
-    service.add_new_command(cmds[3], myprinter.set_pressure)
+    input_schema = { 
+        "temp": DeviceSchemaEntry(AresDataType.NUMBER, "Target Temperature", "Celsius") 
+    }
+    set_cmd = DeviceCommandDescriptor(
+        "Set Temp", 
+        "Sets the printer target temperature", 
+        input_schema, 
+        {} # No output expected
+    )
+    service.add_new_command(set_cmd, myprinter.set_temperature)
+    input_schema = { 
+        "speed": DeviceSchemaEntry(AresDataType.NUMBER, "Target Speed", "mm/min") 
+    }
+    set_cmd = DeviceCommandDescriptor(
+        "Set Speed", 
+        "Sets the printer target speed", 
+        input_schema, 
+        {} # No output expected
+    )
+    service.add_new_command(set_cmd, myprinter.set_print_speed)
+    input_schema = { 
+        "z_height": DeviceSchemaEntry(AresDataType.NUMBER, "Z Height", "mm") 
+    }
+    set_cmd = DeviceCommandDescriptor(
+        "Set Z Height", 
+        "Sets the distance between the printer and the bed", 
+        input_schema, 
+        {} # No output expected
+    )
+    service.add_new_command(set_cmd, myprinter.set_z_height)
+    input_schema = { 
+        "pressure": DeviceSchemaEntry(AresDataType.NUMBER, "Pressure", "kPa") 
+    }
+    set_cmd = DeviceCommandDescriptor(
+        "Set Pressure", 
+        "Sets the nozzle's pressure", 
+        input_schema, 
+        {} # No output expected
+    )
+    service.add_new_command(set_cmd, myprinter.set_pressure)
 
     # 4. Define Command: Get Temperature
     # This schema tells ARES to expect a number back
-    output_schema = [
-        {"current_temp": DeviceSchemaEntry(AresDataType.NUMBER, "Current Temperature", "Celsius")},
-        {"current_speed": DeviceSchemaEntry(AresDataType.NUMBER, "Current Print Speed", "mm/min")},
-        {"current_z_height": DeviceSchemaEntry(AresDataType.NUMBER, "Current Z Height", "mm")},
-        {"current_pressure": DeviceSchemaEntry(AresDataType.NUMBER, "Current Pressure", "kPa")}
-        #{"print_score": DeviceSchemaEntry(AresDataType.NUMBER, "Print Score", "N/A")}
-    ]
-
-    # Create a list of command descriptors
-    cmds = []
-    for i in range(4):
-        cmd = DeviceCommandDescriptor(
-                f"Get {str(list(output_schema[i].keys())[0])}", 
-                f"Gets the printer {str(list(output_schema[i].keys())[0])}", 
-                output_schema[i], 
-                {} # No output expected
-            )
-        cmds.append(cmd)
-
-    # Add the new commands to the device's frontend.
-    service.add_new_command(cmds[0], myprinter.get_temperature)
-    service.add_new_command(cmds[1], myprinter.get_print_speed)
-    service.add_new_command(cmds[2], myprinter.get_z_height)
-    service.add_new_command(cmds[3], myprinter.get_pressure)
-    # service.add_new_command(cmds[4], myprinter.get_print_score)
+    output_schema = { 
+        "temp": DeviceSchemaEntry(AresDataType.NUMBER, "Target Temperature", "Celsius") 
+    }
+    get_cmd = DeviceCommandDescriptor(
+        "get Temp", 
+        "gets the printer target temperature", 
+        {}, # No input needed
+        output_schema 
+    )
+    service.add_new_command(get_cmd, myprinter.get_temperature)
+    output_schema = { 
+        "speed": DeviceSchemaEntry(AresDataType.NUMBER, "Target Speed", "mm/min") 
+    }
+    get_cmd = DeviceCommandDescriptor(
+        "get Speed", 
+        "gets the printer target speed", 
+        {}, # No input needed
+        output_schema
+    )
+    service.add_new_command(get_cmd, myprinter.get_print_speed)
+    output_schema = { 
+        "z_height": DeviceSchemaEntry(AresDataType.NUMBER, "Z Height", "mm") 
+    }
+    get_cmd = DeviceCommandDescriptor(
+        "get Z Height", 
+        "gets the distance between the printer and the bed", 
+        {}, # No input needed
+        output_schema
+    )
+    service.add_new_command(get_cmd, myprinter.get_z_height)
+    output_schema = { 
+        "pressure": DeviceSchemaEntry(AresDataType.NUMBER, "Pressure", "kPa") 
+    }
+    get_cmd = DeviceCommandDescriptor(
+        "get Pressure", 
+        "gets the nozzle's pressure", 
+        {}, # No input needed
+        output_schema
+    )
+    service.add_new_command(get_cmd, myprinter.get_pressure)
 
     # 5. Start the Service
     # This will block and listen for ARES connections
-    print("Virtual Hotplate Service Running...")
+    print("Virtual Printer Service Running...")
     service.start()

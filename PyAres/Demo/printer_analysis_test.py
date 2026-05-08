@@ -3,8 +3,7 @@ from PyAres import AresAnalyzerService, AnalysisRequest, Analysis, AresDataType,
 def analyze(request: AnalysisRequest) -> Analysis:
     #Custom Analysis Logic
     temperature = request.inputs.get("Temperature")
-
-
+    print("Temperature requested")
     if not isinstance(temperature, float):
         print("Temperature was not a float")
         temperature = 0.0
