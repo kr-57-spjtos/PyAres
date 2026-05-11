@@ -10,6 +10,7 @@ def plan(request: PlanRequest) -> PlanResponse:
     nelder_mead = False
     param_dict = {}
     prev_param_dict = {}
+    data_store.append({"outcome", request.analysis_results[-1]})
 
     for param in request.parameters:
         # Add the previous value to the dict
@@ -36,12 +37,12 @@ def plan(request: PlanRequest) -> PlanResponse:
             new_value = random_planner(param)
             param_dict[param.name] = new_value
 
-    # Add the data to the data store
-    data_store.append(prev_param_dict)
+    # Add the data and the outcome to the data store
+    data_store[-1].update(prev_param_dict)
 
     if nelder_mead:
             #Pass all params and results to the algorithm
-            param_dict = nelder_mead_planner(list(request.parameters), request.analysis_results)
+            param_dict = nelder_mead_planner(list(request.parameters), list(request.analysis_results))
 
     return PlanResponse(parameter_names=list(param_dict.keys()), parameter_values=list(param_dict.values()))
 
@@ -73,42 +74,69 @@ def gradual_planner(param: PlanningParameter) -> float:
         return 0
 
 
-def nelder_mead_planner(params: list, results) -> list:
-    def get_centroid() -> dict:
+def nelder_mead_planner(params: list, outcomes: list) -> dict:
+    def get_reflection(alpha: float) -> dict:
+        # Find the centroid
         new_point = {}
-        for axis in request.parameters:
+        for axis in params:
             new_point[axis.name] = 0
-            for point in best_points:
-                new_point[axis.name] += point[axis.name]
+            for i in range(len(best_points) -1):
+                new_point[axis.name] += (best_points[i])[axis.name]
+            # Find average for centroid
             new_point[axis.name] = new_point[axis.name] / len(best_points)
+            # Create reflected point.
+            new_point[axis.name] += alpha * (new_point[axis.name] - best_points[-1][axis.name])
         return new_point
     # Using the params list and the list of results, use the nelder-mead method to
     # Approximate a new point (local maximum) to test
     # Return the point as new_vals
     new_vals = {}
-    n = len(results)
-    if n <= 5:
+    n = len(outcomes)
+    if n < 5:
         best_points.append(data_store[-1])
         # If the simplex doesn't have enough points, make a new point
         for i in range(n):
-            new_vals[request.parameters[i].name] = (results[i] + (i - 1 == n) *
-                                                    (request.parameters[i].maximum_value - request.parameters[i].minimum_value))
+            new_vals[params[i].name] = (outcomes[i] + (i - 1 == n) *
+                                                    (params[i].maximum_value - params[i].minimum_value))
 
         return new_vals
-    elif n == 6:
-        # Not super efficient, but if we have the first new point, then
+    elif n == 5:
+        best_points.append(data_store[-1])
+        # Not super efficient, but if we have the first new point, then we just want to look at the centroid
+        return get_reflection(0.7)
     else:
         # Apply nelder-mead algorithm:
         # Sort results:
-        outcomes = list(results.sort())
-        # Find centroid of all points but x
+        ordered_outcomes = list(sorted(outcomes[:-1]))
+        # Compare most recent outcome to those prior
+        if ordered_outcomes[-1] >= outcomes[-1] > outcomes[1]:
+            # If it's between the best and the second worst, then replace the worst point with
+            # The new point
+            for point in best_points:
+                if point["outcome"] == ordered_outcomes[0]:
+                    point.update(data_store[-1])
 
+            return get_reflection(0.7)
 
+        elif outcomes[-1] > ordered_outcomes[-1]:
+            # If the most recent point is the best point so far, then expand and replace the worst
+            # point from best_points
+            for point in best_points:
+                if point["outcome"] == ordered_outcomes[0]:
+                    point.update(data_store[-1])
+            return get_reflection(-2)
 
+        else :
+            # If outcomes[-1] is at least as bad as the second worst point, then...
+            if outcomes[-1] > ordered_outcomes[0]:
+                # If outcomes[-1] is still better than the worst point, then contract and replace
+                # the worst point
+                for point in best_points:
+                    if point["outcome"] == ordered_outcomes[0]:
+                        point.update(data_store[-1])
 
-
-
-
+            # regardless of how good the point is, check another nearby point
+            return get_reflection(-0.3)
 
 
 
