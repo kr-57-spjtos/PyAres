@@ -144,7 +144,7 @@ if __name__ == "__main__":
     # Basic details about your planner
     name = "Python Test Planner"
     version = "1.0.0"
-    description = "This is a test planner to demonstrate working with PyAres to create planners!"
+    description = "This is a test planner for a proxy printer."
     pythonDemoPlanner = AresPlannerService(plan, name, description, version)
 
     # Add Supported Types
@@ -154,6 +154,9 @@ if __name__ == "__main__":
     pythonDemoPlanner.add_planner_option("Random Planner", "A planner that returns random values", "1.0.0")
     pythonDemoPlanner.add_planner_option("Gradual Planner",
                                          "A planner that gradually increases a value based on the values history",
+                                         "1.0.0")
+    pythonDemoPlanner.add_planner_option("Nelder Mead Planner",
+                                         "An experimental planner that tries to optimize points using a simplified version of the Nelder-Mead method",
                                          "1.0.0")
 
     # Data store of all values
