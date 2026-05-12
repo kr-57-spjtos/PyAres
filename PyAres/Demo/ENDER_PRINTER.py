@@ -52,7 +52,11 @@ class CustomPrinterHardware:
     def get_z_height(self):
         """Returns the Z height."""
         print("[Hardware] Retrieving the current Z height...")
-        return { "current_z_height": self.current_z }
+        raw = self.send_gcode("M114")
+        loc_match = re.search(r"B:([\d.]+)", raw)
+        # Find the right line, and then look for the z coordinate. Split that part off and strip it 
+        z_coord = (str(loc_match.group(1)).split('Z ')[1]).split(" ")[0].strip()
+        return float(z_coord) if z_coord else 0.0
 
     '''
     def get_pressure(self):

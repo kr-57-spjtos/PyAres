@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Finished adding commmands for now">
-      <change afterPath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER_FAKE.py" afterDir="false" />
+    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Altering ENDER_PRINTER_FAKE.py to try and get it to run without printer connection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,26 +32,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.ENDER_PRINTER.executor": "Run",
-    "Python.planner_printer_proxy.executor": "Run",
-    "Python.planner_test.executor": "Run",
-    "Python.printer_analyzer_test.executor": "Run",
-    "Python.proxy_printer_planner.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "katie__changes",
-    "last_opened_file_path": "/Users/katierasmussen/ARES/PyAres/PyAres/Demo",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.ENDER_PRINTER.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ENDER_PRINTER_FAKE.executor&quot;: &quot;Run&quot;,
+    &quot;Python.planner_printer_proxy.executor&quot;: &quot;Run&quot;,
+    &quot;Python.planner_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.printer_analyzer_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.proxy_printer_planner.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;katie__changes&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/katierasmussen/ARES/PyAres/PyAres/Demo&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/PyAres/Demo" />
@@ -81,7 +82,8 @@
       <workItem from="1778535738737" duration="2605000" />
       <workItem from="1778539353225" duration="2478000" />
       <workItem from="1778553726101" duration="1733000" />
-      <workItem from="1778586472613" duration="3226000" />
+      <workItem from="1778586472613" duration="3798000" />
+      <workItem from="1778624769232" duration="719000" />
     </task>
     <task id="LOCAL-00001" summary="Saving failed changes so that I can return to/reference them if need be">
       <option name="closed" value="true" />
@@ -163,7 +165,23 @@
       <option name="project" value="LOCAL" />
       <updated>1778589328229</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Altering ENDER_PRINTER_FAKE.py to try and get it to run without printer connection">
+      <option name="closed" value="true" />
+      <created>1778590175906</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1778590175906</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Altering ENDER_PRINTER_FAKE.py to try and get it to run without printer connection">
+      <option name="closed" value="true" />
+      <created>1778590636585</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1778590636585</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +217,8 @@
     <MESSAGE value="Working on new code to connect to the actual Ender printer. Added more parameter controls and z probing." />
     <MESSAGE value="Moving back to main, taking ENDER_Printer changes out so that I cna avoid mergign the branches" />
     <MESSAGE value="Finished adding commmands for now" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished adding commmands for now" />
+    <MESSAGE value="Altering ENDER_PRINTER_FAKE.py to try and get it to run without printer connection" />
+    <option name="LAST_COMMIT_MESSAGE" value="Altering ENDER_PRINTER_FAKE.py to try and get it to run without printer connection" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PyAres$planner_test.coverage" NAME="planner_test Coverage Results" MODIFIED="1778536831848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
@@ -207,5 +226,6 @@
     <SUITE FILE_PATH="coverage/PyAres$ENDER_PRINTER.coverage" NAME="ENDER_PRINTER Coverage Results" MODIFIED="1778536489457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
     <SUITE FILE_PATH="coverage/PyAres$printer_analyzer_test.coverage" NAME="printer_analyzer_test Coverage Results" MODIFIED="1778373366172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
     <SUITE FILE_PATH="coverage/PyAres$planner_printer_proxy.coverage" NAME="planner_printer_proxy Coverage Results" MODIFIED="1778465465766" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
+    <SUITE FILE_PATH="coverage/PyAres$ENDER_PRINTER_FAKE.coverage" NAME="ENDER_PRINTER_FAKE Coverage Results" MODIFIED="1778590641155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
   </component>
 </project>
