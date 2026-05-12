@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Moving back to main, taking ENDER_Printer changes out so that I cna avoid mergign the branches" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3DUXcGOxSLOHbAAbPLOj02XqNYD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.ENDER_PRINTER.executor": "Run",
+    "Python.planner_printer_proxy.executor": "Run",
+    "Python.planner_test.executor": "Run",
+    "Python.printer_analyzer_test.executor": "Run",
+    "Python.proxy_printer_planner.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "katie__changes",
+    "last_opened_file_path": "/Users/katierasmussen/ARES/PyAres",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-024ed6589d45-c2ffad84badb-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.23567.174" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="" />
+      <created>1778337699267</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1778337699267</updated>
+      <workItem from="1778337701177" duration="1652000" />
+      <workItem from="1778360916065" duration="942000" />
+      <workItem from="1778366883034" duration="733000" />
+      <workItem from="1778373362219" duration="1427000" />
+      <workItem from="1778418533464" duration="2430000" />
+      <workItem from="1778445934341" duration="18044000" />
+      <workItem from="1778497698074" duration="2640000" />
+      <workItem from="1778535738737" duration="2605000" />
+      <workItem from="1778539353225" duration="2478000" />
+      <workItem from="1778553726101" duration="1733000" />
+      <workItem from="1778586472613" duration="800000" />
+    </task>
+    <task id="LOCAL-00001" summary="Saving failed changes so that I can return to/reference them if need be">
+      <option name="closed" value="true" />
+      <created>1778420294461</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1778420294461</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Not finished with this but I've been working on it for a while and feel weird not committing for so long. Making a new planner with nelder-mead method of approximation">
+      <option name="closed" value="true" />
+      <created>1778459667089</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1778459667089</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Well, I built my new code. It doesn't totally replicate all of the neldor-mead method, but hopefully it'll be close enough.">
+      <option name="closed" value="true" />
+      <created>1778464905240</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1778464905240</updated>
+    </task>
+    <task id="LOCAL-00004" summary="I tried to make it, now I need to find what's making it bug out and fail to connect to the sockets.">
+      <option name="closed" value="true" />
+      <created>1778465656540</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1778465656540</updated>
+    </task>
+    <task id="LOCAL-00005" summary="I tried to make it, now I need to find what's making it bug out and fail to connect to the sockets.">
+      <option name="closed" value="true" />
+      <created>1778465684297</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1778465684297</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Working on new code to connect to the actual Ender printer. Added more parameter controls and z probing.">
+      <option name="closed" value="true" />
+      <created>1778541854932</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1778541854932</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Working on new code to connect to the actual Ender printer. Added more parameter controls and z probing.">
+      <option name="closed" value="true" />
+      <created>1778554715699</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1778554715699</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Moving back to main, taking ENDER_Printer changes out so that I cna avoid mergign the branches">
+      <option name="closed" value="true" />
+      <created>1778586633283</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1778586633283</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="9cd062b6-234b-4cc6-b96f-f4520e24047a" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="9cd062b6-234b-4cc6-b96f-f4520e24047a">
+          <value>
+            <State />
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Saving failed changes so that I can return to/reference them if need be" />
+    <MESSAGE value="Only partway through coding this, but I need to put it in now, so that it exists." />
+    <MESSAGE value="Not finished with this but I've been working on it for a while and feel weird not committing for so long. Making a new planner with nelder-mead method of approximation" />
+    <MESSAGE value="Well, I built my new code. It doesn't totally replicate all of the neldor-mead method, but hopefully it'll be close enough." />
+    <MESSAGE value="I tried to make it, now I need to find what's making it bug out and fail to connect to the sockets." />
+    <MESSAGE value="Working on new code to connect to the actual Ender printer. Added more parameter controls and z probing." />
+    <MESSAGE value="Moving back to main, taking ENDER_Printer changes out so that I cna avoid mergign the branches" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moving back to main, taking ENDER_Printer changes out so that I cna avoid mergign the branches" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/PyAres$planner_test.coverage" NAME="planner_test Coverage Results" MODIFIED="1778536831848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
+    <SUITE FILE_PATH="coverage/PyAres$proxy_printer_planner.coverage" NAME="proxy_printer_planner Coverage Results" MODIFIED="1778367304186" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
+    <SUITE FILE_PATH="coverage/PyAres$ENDER_PRINTER.coverage" NAME="ENDER_PRINTER Coverage Results" MODIFIED="1778536489457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
+    <SUITE FILE_PATH="coverage/PyAres$printer_analyzer_test.coverage" NAME="printer_analyzer_test Coverage Results" MODIFIED="1778373366172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
+    <SUITE FILE_PATH="coverage/PyAres$planner_printer_proxy.coverage" NAME="planner_printer_proxy Coverage Results" MODIFIED="1778465465766" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
+  </component>
+</project>
