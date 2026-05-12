@@ -109,12 +109,11 @@ class FakePrinter:
         self.send_gcode("G90")
 
 if __name__ == "__main__":
-    printer = CustomPrinterHardware()
-    if printer.connect():
+        printer = FakePrinter()
         print("Connected to printer successfully.")
         service = AresDeviceService(
             printer.safe_mode, printer.get_state,
-            "Custom Head Printer", "Motion and Bed Control",
+            "Fake Ender Printer", "(Fake) Motion and Bed Control",
             "1.0.0", port=7100
         )
 
