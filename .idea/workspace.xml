@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Moving back to main, taking ENDER_Printer changes out so that I cna avoid mergign the branches" />
+    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Finished adding commmands for now">
+      <change afterPath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER_FAKE.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,12 +46,17 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "katie__changes",
-    "last_opened_file_path": "/Users/katierasmussen/ARES/PyAres",
+    "last_opened_file_path": "/Users/katierasmussen/ARES/PyAres/PyAres/Demo",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/PyAres/Demo" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -73,7 +81,7 @@
       <workItem from="1778535738737" duration="2605000" />
       <workItem from="1778539353225" duration="2478000" />
       <workItem from="1778553726101" duration="1733000" />
-      <workItem from="1778586472613" duration="1458000" />
+      <workItem from="1778586472613" duration="3226000" />
     </task>
     <task id="LOCAL-00001" summary="Saving failed changes so that I can return to/reference them if need be">
       <option name="closed" value="true" />
@@ -147,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778587717136</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Finished adding commmands for now">
+      <option name="closed" value="true" />
+      <created>1778589328229</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1778589328229</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,7 +198,8 @@
     <MESSAGE value="I tried to make it, now I need to find what's making it bug out and fail to connect to the sockets." />
     <MESSAGE value="Working on new code to connect to the actual Ender printer. Added more parameter controls and z probing." />
     <MESSAGE value="Moving back to main, taking ENDER_Printer changes out so that I cna avoid mergign the branches" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moving back to main, taking ENDER_Printer changes out so that I cna avoid mergign the branches" />
+    <MESSAGE value="Finished adding commmands for now" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished adding commmands for now" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PyAres$planner_test.coverage" NAME="planner_test Coverage Results" MODIFIED="1778536831848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
