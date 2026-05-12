@@ -52,7 +52,7 @@ class CustomPrinterHardware:
     def get_z_height(self):
         """Returns the Z height."""
         print("[Hardware] Retrieving the current Z height...")
-        return { "current_z_height": self.z_height }
+        return { "current_z_height": self.current_z }
 
     '''
     def get_pressure(self):
@@ -165,13 +165,13 @@ if __name__ == "__main__":
 
         service.add_new_command(
             DeviceCommandDescriptor("Set Print Speed", "Speed of printer when printing",
-                                    {"speed": DeviceSchemaEntry(AresDataType.NUMBER, "Temp", "C")}, {}),
+                                    {"speed": DeviceSchemaEntry(AresDataType.NUMBER, "Speed", "mm/min")}, {}),
             printer.set_print_speed
         )
 
         service.add_new_command(
             DeviceCommandDescriptor("Set Z Height", "Height of printer above the bed",
-                                    {"z_height": DeviceSchemaEntry(AresDataType.NUMBER, "Temp", "C")}, {}),
+                                    {"z_height": DeviceSchemaEntry(AresDataType.NUMBER, "Length", "mm")}, {}),
             printer.set_z_height
         )
 
@@ -192,11 +192,23 @@ if __name__ == "__main__":
             printer.probe_bed
         )
 
-        # 5. Read Temperature (Lambda last)
+        # 5. Read Parameters (Lambda last)
         service.add_new_command(
             DeviceCommandDescriptor("Get Bed Temp", "Thermistor Read", {}, 
                 {"bed_actual": DeviceSchemaEntry(AresDataType.NUMBER, "Temp", "C")}),
             lambda: {"bed_actual": printer.get_bed_temperature()}
+        )
+
+        service.add_new_command(
+            DeviceCommandDescriptor("Get Print Speed", "Internal recall", {},
+                                    {"speed_current": DeviceSchemaEntry(AresDataType.NUMBER, "Speed", "mm/min")}),
+            lambda: {"speed_current": printer.get_print_speed()}
+        )
+
+        service.add_new_command(
+            DeviceCommandDescriptor("Get Z Height", "Internal recall", {},
+                                    {"z_current": DeviceSchemaEntry(AresDataType.NUMBER, "Z Height", "mm")}),
+            lambda: {"z_current": printer.get_z_height()}
         )
 
         print("Service Active on Port 7100.")
