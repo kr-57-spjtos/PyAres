@@ -1,14 +1,20 @@
 from PyAres import *
 
 import random
+import os
+import json
+from pathlib import Path
 
 def plan(request: PlanRequest) -> PlanResponse:
   print("Planning Requested!")
   new_values = []
   gpdoods = []
   names = []
+  params = {}
+  all_data = {"params": params, "results":request.analysis_results[-1]}
 
   for param in request.parameters:
+    params[param.name] = param.param_history[-1].planned_value
     if param.planner_name == "GPRDood":
       gpdoods.append(param)
 
@@ -28,6 +34,12 @@ def plan(request: PlanRequest) -> PlanResponse:
       new_values.append(new_value)
       names.append(param.name)
 
+  '''
+  # Update json file with params.
+  all_data["params"] = params
+  with open('/Users/katierasmussen/Desktop/StructuralColor/all_campaigns_Dec_10_2025_clean.json', 'w',
+            encoding='utf-8') as f:
+    f.append(json.dumps(all_data))'''
   return PlanResponse(parameter_names=names, parameter_values=new_values)
 
 def random_planner(param: PlanningParameter) -> float:
@@ -56,6 +68,8 @@ def gradual_planner(param: PlanningParameter) -> float:
     return 0
     
 if __name__ == "__main__":
+  #Make output dir for printer
+
   #Basic details about your planner
   name = "Python Test Planner"
   version = "1.0.0"
