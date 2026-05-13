@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Altered get_z_height to use M114">
+    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Starting to add the custom json builder.">
+      <change afterPath="$PROJECT_DIR$/PyAres/Demo/ender_analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PyAres/Demo/planner_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/planner_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +85,8 @@
       <workItem from="1778586472613" duration="3798000" />
       <workItem from="1778624769232" duration="1879000" />
       <workItem from="1778628069433" duration="1868000" />
-      <workItem from="1778672041915" duration="891000" />
+      <workItem from="1778672041915" duration="1848000" />
+      <workItem from="1778709539247" duration="585000" />
     </task>
     <task id="LOCAL-00001" summary="Saving failed changes so that I can return to/reference them if need be">
       <option name="closed" value="true" />
@@ -191,7 +192,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778625541431</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Starting to add the custom json builder.">
+      <option name="closed" value="true" />
+      <created>1778673720795</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1778673720795</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,7 +238,8 @@
     <MESSAGE value="Finished adding commmands for now" />
     <MESSAGE value="Altering ENDER_PRINTER_FAKE.py to try and get it to run without printer connection" />
     <MESSAGE value="Altered get_z_height to use M114" />
-    <option name="LAST_COMMIT_MESSAGE" value="Altered get_z_height to use M114" />
+    <MESSAGE value="Starting to add the custom json builder." />
+    <option name="LAST_COMMIT_MESSAGE" value="Starting to add the custom json builder." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PyAres$planner_test.coverage" NAME="planner_test Coverage Results" MODIFIED="1778536831848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
