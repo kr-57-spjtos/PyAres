@@ -11,7 +11,7 @@ class FakePrinter:
         self.current_x = 0.0
         self.current_y = 0.0
         self.current_z = 0.0
-        self.target_bed_temp = 0.0
+        self.target_bed_temp = 25.0
         self.print_speed = 100.0
         self.temp = 25.0
 
