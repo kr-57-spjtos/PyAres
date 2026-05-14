@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Set up planner_test.py to write data to file.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER_FAKE.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER_FAKE.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PyAres/Demo/ender_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/ender_analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PyAres/Demo/planner_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/planner_test.py" afterDir="false" />
     </list>
@@ -91,7 +90,7 @@
       <workItem from="1778709539247" duration="732000" />
       <workItem from="1778710359146" duration="1488000" />
       <workItem from="1778724451971" duration="4022000" />
-      <workItem from="1778758114166" duration="997000" />
+      <workItem from="1778758114166" duration="2622000" />
     </task>
     <task id="LOCAL-00001" summary="Saving failed changes so that I can return to/reference them if need be">
       <option name="closed" value="true" />
@@ -221,7 +220,23 @@
       <option name="project" value="LOCAL" />
       <updated>1778725123896</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Set up planner_test.py to write data to file.">
+      <option name="closed" value="true" />
+      <created>1778759239440</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1778759239440</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Set up planner_test.py to write data to file.">
+      <option name="closed" value="true" />
+      <created>1778759294408</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1778759294408</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -1,21 +1,15 @@
 from PyAres import *
 
 import random
-import os
-import json
-from pathlib import Path
 
 def plan(request: PlanRequest) -> PlanResponse:
   print("Planning Requested!")
   new_values = []
   gpdoods = []
   names = []
-  params = {}
-  #all_data = {"params": params, "results":request.analysis_results[-1]}
 
   for param in request.parameters:
     print(param.name)
-   # params[param.name] = param.param_history[-1].planned_value
     if param.planner_name == "GPRDood":
       gpdoods.append(param)
 
@@ -34,25 +28,6 @@ def plan(request: PlanRequest) -> PlanResponse:
       new_value = random_planner(param)
       new_values.append(new_value)
       names.append(param.name)
-
-  #all_data["params"] = params
-  """
-  # Set up folders if this is the first experiment
-  if len(request.parameters[0].param_history) == 0:
-    # Make output dir for printer
-    output_folder = f"/~/Desktop/Ares_json/{request.request_metadata.campaign_name}__{request.request_metadata.experiment_start_time}"
-    os.makedirs(output_folder, exist_ok=True)
-
-    # Make json file
-    with open('/Users/katierasmussen/Desktop/StructuralColor/all_campaigns_Dec_10_2025_clean.json', 'w',
-              encoding='utf-8') as f:
-      f.write(json.dumps(all_data))
-  else:
-    # Update json file with params
-    with open('/Users/katierasmussen/Desktop/StructuralColor/all_campaigns_Dec_10_2025_clean.json', 'a',
-              encoding='utf-8') as f:
-      f.write(json.dumps(all_data))
-  """
 
   return PlanResponse(parameter_names=names, parameter_values=new_values)
 
