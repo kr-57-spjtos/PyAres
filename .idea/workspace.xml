@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Created an ender_analyzer script. Still has fairly basic &quot;analysis&quot;">
+    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Set up planner_test.py to write data to file.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER_FAKE.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER_FAKE.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyAres/Demo/ender_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/ender_analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PyAres/Demo/planner_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/planner_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +90,8 @@
       <workItem from="1778672041915" duration="1848000" />
       <workItem from="1778709539247" duration="732000" />
       <workItem from="1778710359146" duration="1488000" />
-      <workItem from="1778724451971" duration="364000" />
+      <workItem from="1778724451971" duration="4022000" />
+      <workItem from="1778758114166" duration="997000" />
     </task>
     <task id="LOCAL-00001" summary="Saving failed changes so that I can return to/reference them if need be">
       <option name="closed" value="true" />
@@ -210,7 +213,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778710190536</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Set up planner_test.py to write data to file.">
+      <option name="closed" value="true" />
+      <created>1778725123895</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1778725123896</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,10 +261,11 @@
     <MESSAGE value="Altered get_z_height to use M114" />
     <MESSAGE value="Starting to add the custom json builder." />
     <MESSAGE value="Created an ender_analyzer script. Still has fairly basic &quot;analysis&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created an ender_analyzer script. Still has fairly basic &quot;analysis&quot;" />
+    <MESSAGE value="Set up planner_test.py to write data to file." />
+    <option name="LAST_COMMIT_MESSAGE" value="Set up planner_test.py to write data to file." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/PyAres$planner_test.coverage" NAME="planner_test Coverage Results" MODIFIED="1778536831848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
+    <SUITE FILE_PATH="coverage/PyAres$planner_test.coverage" NAME="planner_test Coverage Results" MODIFIED="1778758162702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
     <SUITE FILE_PATH="coverage/PyAres$proxy_printer_planner.coverage" NAME="proxy_printer_planner Coverage Results" MODIFIED="1778367304186" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
     <SUITE FILE_PATH="coverage/PyAres$ENDER_PRINTER.coverage" NAME="ENDER_PRINTER Coverage Results" MODIFIED="1778536489457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
     <SUITE FILE_PATH="coverage/PyAres$printer_analyzer_test.coverage" NAME="printer_analyzer_test Coverage Results" MODIFIED="1778373366172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />

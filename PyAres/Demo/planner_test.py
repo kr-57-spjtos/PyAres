@@ -11,10 +11,11 @@ def plan(request: PlanRequest) -> PlanResponse:
   gpdoods = []
   names = []
   params = {}
-  all_data = {"params": params, "results":request.analysis_results[-1]}
+  #all_data = {"params": params, "results":request.analysis_results[-1]}
 
   for param in request.parameters:
-    params[param.name] = param.param_history[-1].planned_value
+    print(param.name)
+   # params[param.name] = param.param_history[-1].planned_value
     if param.planner_name == "GPRDood":
       gpdoods.append(param)
 
@@ -34,7 +35,8 @@ def plan(request: PlanRequest) -> PlanResponse:
       new_values.append(new_value)
       names.append(param.name)
 
-  all_data["params"] = params
+  #all_data["params"] = params
+  """
   # Set up folders if this is the first experiment
   if len(request.parameters[0].param_history) == 0:
     # Make output dir for printer
@@ -50,7 +52,7 @@ def plan(request: PlanRequest) -> PlanResponse:
     with open('/Users/katierasmussen/Desktop/StructuralColor/all_campaigns_Dec_10_2025_clean.json', 'a',
               encoding='utf-8') as f:
       f.write(json.dumps(all_data))
-
+  """
 
   return PlanResponse(parameter_names=names, parameter_values=new_values)
 
