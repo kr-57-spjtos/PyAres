@@ -34,12 +34,24 @@ def plan(request: PlanRequest) -> PlanResponse:
       new_values.append(new_value)
       names.append(param.name)
 
-  '''
-  # Update json file with params.
   all_data["params"] = params
-  with open('/Users/katierasmussen/Desktop/StructuralColor/all_campaigns_Dec_10_2025_clean.json', 'w',
-            encoding='utf-8') as f:
-    f.append(json.dumps(all_data))'''
+  # Set up folders if this is the first experiment
+  if len(request.parameters[0].param_history) == 0:
+    # Make output dir for printer
+    output_folder = f"/~/Desktop/Ares_json/{request.request_metadata.campaign_name}__{request.request_metadata.experiment_start_time}"
+    os.makedirs(output_folder, exist_ok=True)
+
+    # Make json file
+    with open('/Users/katierasmussen/Desktop/StructuralColor/all_campaigns_Dec_10_2025_clean.json', 'w',
+              encoding='utf-8') as f:
+      f.write(json.dumps(all_data))
+  else:
+    # Update json file with params
+    with open('/Users/katierasmussen/Desktop/StructuralColor/all_campaigns_Dec_10_2025_clean.json', 'a',
+              encoding='utf-8') as f:
+      f.write(json.dumps(all_data))
+
+
   return PlanResponse(parameter_names=names, parameter_values=new_values)
 
 def random_planner(param: PlanningParameter) -> float:
@@ -68,7 +80,6 @@ def gradual_planner(param: PlanningParameter) -> float:
     return 0
     
 if __name__ == "__main__":
-  #Make output dir for printer
 
   #Basic details about your planner
   name = "Python Test Planner"
