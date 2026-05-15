@@ -28,12 +28,12 @@ class FakePrinter:
     def get_print_speed(self):
         """Returns the print speed."""
         print("[Hardware] Retrieving the current print speed...")
-        return { "current_speed": self.print_speed }
+        return self.print_speed
 
     def get_z_height(self):
         """Returns the Z height."""
         print("[Hardware] Retrieving the current Z height...")
-        return { "current_z_height": self.current_z }
+        return self.current_z
 
     '''
     def get_pressure(self):
