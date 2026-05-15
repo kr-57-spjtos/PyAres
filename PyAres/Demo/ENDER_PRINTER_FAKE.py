@@ -22,17 +22,14 @@ class FakePrinter:
     # Getter functions for parameter space
     def get_bed_temperature(self):
         """Returns the temperature."""
-        print("[Hardware] Retrieving the current temperature...")
         return self.temp
 
     def get_print_speed(self):
         """Returns the print speed."""
-        print("[Hardware] Retrieving the current print speed...")
         return self.print_speed
 
     def get_z_height(self):
         """Returns the Z height."""
-        print("[Hardware] Retrieving the current Z height...")
         return self.current_z
 
     '''

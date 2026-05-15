@@ -2,6 +2,8 @@ from PyAres import AresAnalyzerService, AnalysisRequest, Analysis, AresDataType,
 import os
 import json
 from pathlib import Path
+# Get home directory exempting the first /.
+HOME_DIRECTORY = str(Path.home())[1:]
 
 def analyze(request: AnalysisRequest) -> Analysis:
     print("Analyzing...")
@@ -37,21 +39,21 @@ def analyze(request: AnalysisRequest) -> Analysis:
 
     analysis = Analysis(result=temperature*print_speed/4)
 
-    def store_data() -> None:
-        params = {"temperature": temperature, "print_speed": print_speed, "z_height": z_height}
-        all_data = {"params": params, "results": analysis}
-        """
-        # Make output dir for printer
-        output_folder = f"/~/Desktop/Ares_json/{request.request_metadata.campaign_name}__{request.request_metadata.experiment_start_time}"
-        os.makedirs(output_folder, exist_ok=True)
+    all_data = {"params": request.inputs, "results": analysis}
+    print(request.inputs)
 
-        # Update json file with params
-        with open('/Users/katierasmussen/Desktop/StructuralColor/all_campaigns_Dec_10_2025_clean.json', 'a',
-                      encoding='utf-8') as f:
-                f.write(json.dumps(all_data))
-        """
+    """
+    # Make output dir for printer
+    output_folder = f"{HOME_DIRECTORY}/Desktop/ARES_json"
+    os.makedirs(output_folder, exist_ok=True)
+        
+    # Update json file with params
+    json_file = os.path.join(output_folder,'placeholder_name.json')
+    with open(json_file, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(dict(all_data)))
+            f.write('\n')
+    """
 
-    store_data()
     return analysis
 
 
