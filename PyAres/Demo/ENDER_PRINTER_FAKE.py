@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Fake version of ENDER_PRINTER.py, so that I can test it when I don't have printer access
 import time
-import re
+import random
 from PyAres import AresDeviceService, AresDataType, DeviceSchemaEntry, DeviceCommandDescriptor
 
 class FakePrinter:
@@ -14,6 +14,7 @@ class FakePrinter:
         self.target_bed_temp = 25.0
         self.print_speed = 100.0
         self.temp = 25.0
+        self.print_z_height = 5.0
 
     def send_gcode(self, command: str):
         print(command.strip() + "\n")
@@ -41,13 +42,19 @@ class FakePrinter:
 
     def move_to(self, x=0.0, y=0.0, z=0.0):
         # Signature MUST match keys in move_schema exactly
-        cmd = f"G0 X{x} Y{y} Z{z} F2000"
+        set_x = self.current_x * (x < 0) + x * (x >= 0)
+        set_y = self.current_y * (y < 0) + y * (y >= 0)
+        set_z = self.current_z * (z < 0) + z * (z >= 0)
+        cmd = f"G0 X{set_x} Y{set_y} Z{set_z} F1000"
         self.send_gcode(cmd)
         self.current_x, self.current_y, self.current_z = x, y, z
         return {"status": "moved"}
 
     def print(self, x=0.0, y=0.0):
         # Signature MUST match keys in print_schema exactly
+        # Set z height beforehand.
+        z_cmd = f"G1 Z{self.print_z_height} F1000"
+        self.send_gcode(z_cmd)
         cmd = f"G1 X{x} Y{y} F{self.print_speed}"
         self.send_gcode(cmd)
         self.current_x, self.current_y = x, y
@@ -81,10 +88,19 @@ class FakePrinter:
         return {} # Return empty dict if no data needs to be sent back
     '''
 
+    def wait_for_printer(self):
+        # This is a half-point method meant to make the printer wait for all commands to be finished. I'm not sure
+        # if it will work but I will try.
+        # M400 is meant to make the printer wait and finish moves.
+        self.send_gcode("M400")
+        time.sleep(random.randint(2,6))
+        return {"result": "Waited for printer"}
+
     def home_axes(self):
         print("[Hardware] Homing...")
         self.send_gcode("G28")
-        self.current_x = self.current_y = self.current_z = 0.0
+        self.current_x = self.current_y = 150.0
+        self.current_z = 10.0
         return {"result": "Home Success"}
 
     # Probe bed for bed leveling. Intended for use with bilinear ABL, probing grid 2x2 points.
@@ -169,7 +185,14 @@ if __name__ == "__main__":
             printer.probe_bed
         )
 
-        # 5. Read Parameters (Lambda last)
+        # 5. Wait for printer (Added an output schema to force the button to render)
+        service.add_new_command(
+            DeviceCommandDescriptor("Wait for Printer", "G400",{},
+                                    {"result": DeviceSchemaEntry(AresDataType.STRING, "Result", "")}),
+            printer.wait_for_printer
+        )
+
+        # 6. Read Parameters (Lambda last)
         service.add_new_command(
             DeviceCommandDescriptor("Get Bed Temp", "Thermistor Read", {}, 
                 {"bed_actual": DeviceSchemaEntry(AresDataType.NUMBER, "Temp", "C")}),

@@ -3,9 +3,10 @@ import serial
 import time
 import re
 from PyAres import AresDeviceService, AresDataType, DeviceSchemaEntry, DeviceCommandDescriptor
+import time
 
 class CustomPrinterHardware:
-    def __init__(self, port="/dev/tty.usbserial-11220", baudrate=250000): # Port switched to work on Mac, may fail on Windows.
+    def __init__(self, port="/dev/tty.usbserial-1110", baudrate=250000): # Port switched to work on Mac, may fail on Windows.
         self.port = port
         self.baudrate = baudrate
         self.ser = None
@@ -14,6 +15,7 @@ class CustomPrinterHardware:
         self.current_z = 0.0
         self.target_bed_temp = 0.0
         self.print_speed = 100.0
+        self.print_z_height = 5.0
 
     def connect(self):
         try:
@@ -42,21 +44,24 @@ class CustomPrinterHardware:
     def get_bed_temperature(self):
         raw = self.send_gcode("M105")
         bed_match = re.search(r"B:([\d.]+)", raw)
+        print(f"Get bed temp got printer response {raw}")
         return float(bed_match.group(1)) if bed_match else 0.0
 
     def get_print_speed(self):
         """Returns the print speed."""
         print("[Hardware] Retrieving the current print speed...")
-        return { "current_speed": self.print_speed }
+        return self.print_speed
 
     def get_z_height(self):
+
         """Returns the Z height."""
         print("[Hardware] Retrieving the current Z height...")
-        raw = self.send_gcode("M114")
-        loc_match = re.search(r"B:([\d.]+)", raw)
+        #raw = self.send_gcode("M114")
+        #loc_match = re.search(r"B:([\d.]+)", raw)
         # Find the right line, and then look for the z coordinate. Split that part off and strip it 
-        z_coord = (str(loc_match.group(1)).split('Z ')[1]).split(" ")[0].strip()
-        return float(z_coord) if z_coord else 0.0
+        #z_coord = (str(loc_match.group(1)).split('Z ')[1]).split(" ")[0].strip()
+        #return float(z_coord) if z_coord else 0.0
+        return self.current_z
 
     '''
     def get_pressure(self):
@@ -65,15 +70,22 @@ class CustomPrinterHardware:
         return { "current_pressure": self.pressure }
     '''
 
-    def move_to(self, x=0.0, y=0.0, z=0.0):
-        # Signature MUST match keys in move_schema exactly
-        cmd = f"G0 X{x} Y{y} Z{z} F2000"
+    def move_to(self, x=-1.0, y=-1.0, z=-1.0):
+        # Signature MUST match keys in move_schema exactly.
+        # Only change x, y, and z if they have been manually set.
+        set_x = self.current_x * (x < 0) + x * (x >= 0)
+        set_y = self.current_y * (y < 0) + y * (y >= 0)
+        set_z = self.current_z * (z < 0) + z * (z >= 0)
+        cmd = f"G0 X{set_x} Y{set_y} Z{set_z} F1000"
         self.send_gcode(cmd)
         self.current_x, self.current_y, self.current_z = x, y, z
         return {"status": "moved"}
 
     def print(self, x=0.0, y=0.0):
         # Signature MUST match keys in print_schema exactly
+        # Set z height beforehand.
+        z_cmd = f"G1 Z{self.print_z_height} F1000"
+        self.send_gcode(z_cmd)
         cmd = f"G1 X{x} Y{y} F{self.print_speed}"
         self.send_gcode(cmd)
         self.current_x, self.current_y = x, y
@@ -97,6 +109,7 @@ class CustomPrinterHardware:
         """Simulates setting the Z height."""
         print(f"[Hardware] Setting Z height to {z_height} mm...")
         self.move_to(self.current_x, self.current_y, z_height)
+        self.print_z_height = z_height
         return {} # Return empty dict if no data needs to be sent back
 
     '''
@@ -106,6 +119,12 @@ class CustomPrinterHardware:
         self.pressure = pressure
         return {} # Return empty dict if no data needs to be sent back
     '''
+    def wait_for_printer(self):
+        # This is a half-point method meant to make the printer wait for all commands to be finished. I'm not sure
+        # if it will work but I will try.
+        # M400 is meant to make the printer wait and finish moves.
+        self.send_gcode("M400")
+        return {"result": "Waited for printer"}
 
     def home_axes(self):
         print("[Hardware] Homing...")
@@ -196,7 +215,15 @@ if __name__ == "__main__":
             printer.probe_bed
         )
 
-        # 5. Read Parameters (Lambda last)
+        # 5. Wait for printer (Added an output schema to force the button to render)
+        service.add_new_command(
+            DeviceCommandDescriptor("Wait for Printer", "G400",
+                                    {},
+                                    {"result": DeviceSchemaEntry(AresDataType.STRING, "Result", "")}),
+            printer.wait_for_printer
+        )
+
+        # 6. Read Parameters (Lambda last)
         service.add_new_command(
             DeviceCommandDescriptor("Get Bed Temp", "Thermistor Read", {}, 
                 {"bed_actual": DeviceSchemaEntry(AresDataType.NUMBER, "Temp", "C")}),

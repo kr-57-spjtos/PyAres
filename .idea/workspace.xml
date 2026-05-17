@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="For some reason I set get print speed and get z height to return dictionaries instead of floats. I fixed it now.">
+    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Currently it still complains that my dictionary is not Json serializable. Ah  well.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER_FAKE.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER_FAKE.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PyAres/Demo/ender_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/ender_analyzer.py" afterDir="false" />
     </list>
@@ -93,7 +94,10 @@
       <workItem from="1778724451971" duration="4022000" />
       <workItem from="1778758114166" duration="2890000" />
       <workItem from="1778806417579" duration="3587000" />
-      <workItem from="1778852838509" duration="3403000" />
+      <workItem from="1778852838509" duration="3601000" />
+      <workItem from="1778877234798" duration="5692000" />
+      <workItem from="1778981632682" duration="4700000" />
+      <workItem from="1779018819832" duration="1236000" />
     </task>
     <task id="LOCAL-00001" summary="Saving failed changes so that I can return to/reference them if need be">
       <option name="closed" value="true" />
@@ -255,7 +259,23 @@
       <option name="project" value="LOCAL" />
       <updated>1778809460060</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Currently it still complains that my dictionary is not Json serializable. Ah  well.">
+      <option name="closed" value="true" />
+      <created>1778856396703</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1778856396703</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Currently it still complains that my dictionary is not Json serializable. Ah  well.">
+      <option name="closed" value="true" />
+      <created>1778856407137</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1778856407137</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,12 +318,13 @@
     <MESSAGE value="Set up planner_test.py to write data to file." />
     <MESSAGE value="Remembered that analysis comes after planning, seemingly, which is super weird, so I moved the data output into analysis." />
     <MESSAGE value="For some reason I set get print speed and get z height to return dictionaries instead of floats. I fixed it now." />
-    <option name="LAST_COMMIT_MESSAGE" value="For some reason I set get print speed and get z height to return dictionaries instead of floats. I fixed it now." />
+    <MESSAGE value="Currently it still complains that my dictionary is not Json serializable. Ah  well." />
+    <option name="LAST_COMMIT_MESSAGE" value="Currently it still complains that my dictionary is not Json serializable. Ah  well." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PyAres$planner_test.coverage" NAME="planner_test Coverage Results" MODIFIED="1778758162702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
     <SUITE FILE_PATH="coverage/PyAres$proxy_printer_planner.coverage" NAME="proxy_printer_planner Coverage Results" MODIFIED="1778367304186" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
-    <SUITE FILE_PATH="coverage/PyAres$ENDER_PRINTER.coverage" NAME="ENDER_PRINTER Coverage Results" MODIFIED="1778536489457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
+    <SUITE FILE_PATH="coverage/PyAres$ENDER_PRINTER.coverage" NAME="ENDER_PRINTER Coverage Results" MODIFIED="1778882309187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
     <SUITE FILE_PATH="coverage/PyAres$printer_analyzer_test.coverage" NAME="printer_analyzer_test Coverage Results" MODIFIED="1778373366172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
     <SUITE FILE_PATH="coverage/PyAres$planner_printer_proxy.coverage" NAME="planner_printer_proxy Coverage Results" MODIFIED="1778465465766" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
     <SUITE FILE_PATH="coverage/PyAres$ENDER_PRINTER_FAKE.coverage" NAME="ENDER_PRINTER_FAKE Coverage Results" MODIFIED="1778590641155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
