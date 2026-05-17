@@ -40,12 +40,9 @@ class FakePrinter:
         return { "current_pressure": self.pressure }
     '''
 
-    def move_to(self, x=0.0, y=0.0, z=0.0):
+    def move_to(self, x: float, y: float, z: float):
         # Signature MUST match keys in move_schema exactly
-        set_x = self.current_x * (x < 0) + x * (x >= 0)
-        set_y = self.current_y * (y < 0) + y * (y >= 0)
-        set_z = self.current_z * (z < 0) + z * (z >= 0)
-        cmd = f"G0 X{set_x} Y{set_y} Z{set_z} F1000"
+        cmd = f"G0 X{x} Y{y} Z{z} F1000"
         self.send_gcode(cmd)
         self.current_x, self.current_y, self.current_z = x, y, z
         return {"status": "moved"}
@@ -58,7 +55,7 @@ class FakePrinter:
         cmd = f"G1 X{x} Y{y} F{self.print_speed}"
         self.send_gcode(cmd)
         self.current_x, self.current_y = x, y
-        return {"status": "moved"}
+        return {"status": "printed"}
 
     # Setter functions for parameter space
     def set_bed_temp(self, target_temp=0.0, wait=False):
@@ -88,13 +85,15 @@ class FakePrinter:
         return {} # Return empty dict if no data needs to be sent back
     '''
 
-    def wait_for_printer(self):
+    def wait_for_printer(self, number: float):
+        print(number)
         # This is a half-point method meant to make the printer wait for all commands to be finished. I'm not sure
         # if it will work but I will try.
         # M400 is meant to make the printer wait and finish moves.
         self.send_gcode("M400")
-        time.sleep(random.randint(2,6))
-        return {"result": "Waited for printer"}
+        time.sleep(random.randint(3,6))
+        print("Printer caught up with commands.")
+        return {"output": "Waited for printer"}
 
     def home_axes(self):
         print("[Hardware] Homing...")
@@ -187,8 +186,8 @@ if __name__ == "__main__":
 
         # 5. Wait for printer (Added an output schema to force the button to render)
         service.add_new_command(
-            DeviceCommandDescriptor("Wait for Printer", "G400",{},
-                                    {"result": DeviceSchemaEntry(AresDataType.STRING, "Result", "")}),
+            DeviceCommandDescriptor("Wait for Printer", "G400",
+                                    {"number": DeviceSchemaEntry(AresDataType.NUMBER, "random number", "mm")},{}),
             printer.wait_for_printer
         )
 

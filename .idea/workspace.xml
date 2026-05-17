@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="Currently it still complains that my dictionary is not Json serializable. Ah  well.">
+    <list default="true" id="dd4d3bfe-82de-433e-a677-69f094147f30" name="Changes" comment="I think I broke something after the home command, but I don't know what it was. I'm going to commit what I have currently, look around, and if I can't find anything I'll try to roll back to a previous commit and compare.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER_FAKE.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/ENDER_PRINTER_FAKE.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PyAres/Demo/ender_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyAres/Demo/ender_analyzer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +96,7 @@
       <workItem from="1778852838509" duration="3601000" />
       <workItem from="1778877234798" duration="5692000" />
       <workItem from="1778981632682" duration="4700000" />
-      <workItem from="1779018819832" duration="1236000" />
+      <workItem from="1779018819832" duration="11094000" />
     </task>
     <task id="LOCAL-00001" summary="Saving failed changes so that I can return to/reference them if need be">
       <option name="closed" value="true" />
@@ -275,7 +274,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778856407137</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="I think I broke something after the home command, but I don't know what it was. I'm going to commit what I have currently, look around, and if I can't find anything I'll try to roll back to a previous commit and compare.">
+      <option name="closed" value="true" />
+      <created>1779020734537</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1779020734537</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,7 +326,8 @@
     <MESSAGE value="Remembered that analysis comes after planning, seemingly, which is super weird, so I moved the data output into analysis." />
     <MESSAGE value="For some reason I set get print speed and get z height to return dictionaries instead of floats. I fixed it now." />
     <MESSAGE value="Currently it still complains that my dictionary is not Json serializable. Ah  well." />
-    <option name="LAST_COMMIT_MESSAGE" value="Currently it still complains that my dictionary is not Json serializable. Ah  well." />
+    <MESSAGE value="I think I broke something after the home command, but I don't know what it was. I'm going to commit what I have currently, look around, and if I can't find anything I'll try to roll back to a previous commit and compare." />
+    <option name="LAST_COMMIT_MESSAGE" value="I think I broke something after the home command, but I don't know what it was. I'm going to commit what I have currently, look around, and if I can't find anything I'll try to roll back to a previous commit and compare." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PyAres$planner_test.coverage" NAME="planner_test Coverage Results" MODIFIED="1778758162702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyAres/Demo" />
