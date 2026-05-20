@@ -3,7 +3,7 @@ import serial
 import time
 import re
 from PyAres import AresDeviceService, AresDataType, DeviceSchemaEntry, DeviceCommandDescriptor
-import time
+import numpy as np
 
 class CustomPrinterHardware:
     def __init__(self, port="/dev/tty.usbserial-1110", baudrate=250000): # Port switched to work on Mac, may fail on Windows.
@@ -28,15 +28,28 @@ class CustomPrinterHardware:
         except Exception as e:
             print(f"Connection error: {e}")
             return False
+        
+    def check_end(self, cmd: str, line: str) -> bool:
+        # It should be possible to add more ending checks based on command here
+        if cmd == "G28":
+            while True:
+                if line.find("X:") != -1:
+                    break
+        else: 
+            while True:
+                if "ok" in line.lower():
+                    break
+        return True
 
     def send_gcode(self, command):
         if not self.ser: return ""
         self.ser.write((command.strip() + "\n").encode('utf-8'))
         response = ""
         while True:
-            line = self.ser.readline().decode('utf-8', errors='ignore').strip() # Set errors to ignore to copy format of probe_and_print because it worked there
+            line = self.ser.readline().decode('utf-8', errors='ignore').strip()
+            print(line) # Set errors to ignore to copy format of probe_and_print because it worked there
             response += line + "\n"
-            if "ok" in line.lower():
+            if self.check_end(command,line):
                 break
         return response
 
@@ -45,9 +58,10 @@ class CustomPrinterHardware:
         raw = self.send_gcode("M105")
         #bed_match = re.search(r"B:([\d.]+)", raw)
         # Made a function to get temperature.
+        print(raw)
         if raw.find("B:") > 0:
             bed_match = (raw[raw.find("B:") + 2:]).split(" ")[0]
-            print(f"Get bed temp got printer response {raw}")
+            #print(f"Get bed temp got printer response {raw}")
             print(f"Temp is {bed_match} C")
             return float(bed_match) 
         else:
@@ -79,26 +93,36 @@ class CustomPrinterHardware:
     def move_to(self, x: float, y: float, z: float):
         # Signature MUST match keys in move_schema exactly
         cmd = f"G0 X{x} Y{y} Z{z} F1000"
-        print(self.send_gcode(cmd))
+        self.send_gcode(cmd)
+        distance = np.linalg.norm(np.array((self.current_x - x, self.current_y - y, self.current_z - z)))
+        time.sleep(round(distance * 3/50 ) + 3) # Wait for printer to finish moving
         self.current_x, self.current_y, self.current_z = x, y, z
+        print(self.send_gcode("M114")) # Check where the printer is after moving. 
+        time.sleep(1) # Wait for command to complete
         return {"status": "moved"}
 
     def print(self, length):
         # Signature MUST match keys in print_schema exactly
         # Set z height beforehand.
         z_cmd = f"G1 Z{self.print_z_height} F1000"
-        print(self.send_gcode(z_cmd))
+        self.send_gcode(z_cmd)
         cmd = f"G1 X{self.current_x + length} F{self.print_speed}"
-        print(self.send_gcode(cmd))
+        self.send_gcode(cmd)
+        time.sleep(3 + length/self.print_speed) # Wait for printer to catch up. 
         self.current_x += length
         return {"status": "printed"}
 
     # Setter functions for parameter space
     def set_bed_temp(self, target_temp=0.0, wait=False):
         # Signature MUST match keys in temp_schema exactly
+        print(f"[Hardware] Setting bed temp to {target_temp} mm...")
         self.target_bed_temp = target_temp
         cmd = "M190" if wait else "M140"
         self.send_gcode(f"{cmd} S{target_temp}")
+        # Experimental code to force waiting for bed to heat. 
+        if wait==True:
+            while not (target_temp - 0.5 < float(self.get_bed_temperature()) < target_temp + 0.5):
+                time.sleep(1)
         return {"status": "set"}
 
     def set_print_speed(self, speed: float):
@@ -133,6 +157,7 @@ class CustomPrinterHardware:
         print("[Hardware] Homing...")
         self.send_gcode("G28")
         self.current_x = self.current_y = self.current_z = 0.0
+        time.sleep(40) 
         return {"result": "Home Success"}
 
     # Probe bed for bed leveling. Intended for use with bilinear ABL, probing grid 2x2 points.
