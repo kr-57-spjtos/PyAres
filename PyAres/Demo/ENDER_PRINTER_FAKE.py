@@ -18,12 +18,24 @@ class FakePrinter:
 
     def send_gcode(self, command: str):
         print(command.strip() + "\n")
-        return (command.strip() + "\n")
+        if command == "M105":
+            return f"T:{round(self.temp -3.4, 2)} /0.00 B:{round(self.temp, 2)} /0.00 @:0 B@:0"
+        else:
+            return (command.strip() + "\n")
 
     # Getter functions for parameter space
+    # Getter functions for parameter space
     def get_bed_temperature(self):
-        """Returns the temperature."""
-        return self.temp
+        raw = self.send_gcode("M105")
+        # bed_match = re.search(r"B:([\d.]+)", raw)
+        # Made a function to get temperature.
+        if raw.find("B:") > 0:
+            bed_match = (raw[raw.find("B:") + 2:]).split(" ")[0]
+            print(f"Get bed temp got printer response {raw}")
+            print(f"Temp is {bed_match} C")
+            return float(bed_match)
+        else:
+            return 0.0
 
     def get_print_speed(self):
         """Returns the print speed."""
@@ -47,20 +59,20 @@ class FakePrinter:
         self.current_x, self.current_y, self.current_z = x, y, z
         return {"status": "moved"}
 
-    def print(self, x=0.0, y=0.0):
+    def print(self, length: float):
         # Signature MUST match keys in print_schema exactly
         # Set z height beforehand.
         z_cmd = f"G1 Z{self.print_z_height} F1000"
         self.send_gcode(z_cmd)
-        cmd = f"G1 X{x} Y{y} F{self.print_speed}"
+        cmd = f"G1 X{self.current_x + length} Y{self.current_y} F{self.print_speed}"
         self.send_gcode(cmd)
-        self.current_x, self.current_y = x, y
+        self.current_x += length
         return {"status": "printed"}
 
     # Setter functions for parameter space
     def set_bed_temp(self, target_temp=0.0, wait=False):
         # Signature MUST match keys in temp_schema exactly
-        self.target_bed_temp = target_temp
+        self.temp = self.target_bed_temp = target_temp
         cmd = "M190" if wait else "M140"
         self.send_gcode(f"{cmd} S{target_temp}")
         return {"status": "set"}

@@ -23,6 +23,16 @@ def plan(request: PlanRequest) -> PlanResponse:
       new_values.append(new_value)
       names.append(param.name)
 
+    elif param.planner_name == "X Place Planner":
+      new_value = x_place_planner(param)
+      new_values.append(new_value)
+      names.append(param.name)
+
+    elif param.planner_name == "Y Place Planner":
+      new_value = y_place_planner(param)
+      new_values.append(new_value)
+      names.append(param.name)
+
     else:
       print("Invalid planner name detected... defaulting to random")
       new_value = random_planner(param)
@@ -55,6 +65,42 @@ def gradual_planner(param: PlanningParameter) -> float:
     
   else:
     return 0
+
+def x_place_planner(param: PlanningParameter) -> float:
+    if (param.data_type == AresDataType.NUMBER):
+      if len(param.param_history) == 0:
+        return param.minimum_value
+
+      previous_value = param.param_history[-1].planned_value
+
+      if previous_value > param.maximum_value:
+        return param.minimum_value
+
+      else:
+        return previous_value
+
+    else:
+      return 60.0
+
+
+def y_place_planner(param: PlanningParameter) -> float:
+  if (param.data_type == AresDataType.NUMBER):
+    if len(param.param_history) == 0:
+      return param.minimum_value
+
+    previous_value = param.param_history[-1].planned_value
+    if len(param.param_history) % 6 == 0:
+      # Only increase y every 6 prints
+      previous_value += 15
+
+    if previous_value > param.maximum_value:
+      return param.minimum_value
+
+    else:
+      return previous_value
+
+  else:
+    return 60.0
     
 if __name__ == "__main__":
 
@@ -70,6 +116,8 @@ if __name__ == "__main__":
   #Add Planner Options
   pythonDemoPlanner.add_planner_option("Random Planner", "A planner that returns random values", "1.0.0")
   pythonDemoPlanner.add_planner_option("Gradual Planner", "A planner that gradually increases a value based on the values history", "1.0.0")
+  pythonDemoPlanner.add_planner_option("X Place Planner", "Planner that plans x location of prints", "1.0.0")
+  pythonDemoPlanner.add_planner_option("Y Place Planner", "Planner that plans y location of prints", "1.0.0")
 
   #Add Planner Settings
   pythonDemoPlanner.add_setting("String Setting", AresDataType.STRING)

@@ -43,9 +43,15 @@ class CustomPrinterHardware:
     # Getter functions for parameter space
     def get_bed_temperature(self):
         raw = self.send_gcode("M105")
-        bed_match = re.search(r"B:([\d.]+)", raw)
-        print(f"Get bed temp got printer response {raw}")
-        return float(bed_match.group(1)) if bed_match else 0.0
+        #bed_match = re.search(r"B:([\d.]+)", raw)
+        # Made a function to get temperature.
+        if raw.find("B:") > 0:
+            bed_match = (raw[raw.find("B:") + 2:]).split(" ")[0]
+            print(f"Get bed temp got printer response {raw}")
+            print(f"Temp is {bed_match} C")
+            return float(bed_match) 
+        else:
+            return 0.0
 
     def get_print_speed(self):
         """Returns the print speed."""
@@ -116,8 +122,7 @@ class CustomPrinterHardware:
         return {} # Return empty dict if no data needs to be sent back
     '''
 
-    def wait_for_printer(self, number: float):
-        print(number)
+    def wait_for_printer(self):
         # This is a half-point method meant to make the printer wait for all commands to be finished. I'm not sure
         # if it will work but I will try.
         # M400 is meant to make the printer wait and finish moves.
@@ -215,8 +220,7 @@ if __name__ == "__main__":
 
         # 5. Wait for printer (Added an output schema to force the button to render)
         service.add_new_command(
-            DeviceCommandDescriptor("Wait for Printer", "G400",
-                                    {"number": DeviceSchemaEntry(AresDataType.NUMBER, "random number", "mm")}, {}),
+            DeviceCommandDescriptor("Wait for Printer", "G400",{}, {}),
             printer.wait_for_printer
         )
 

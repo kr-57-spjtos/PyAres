@@ -37,7 +37,7 @@ def analyze(request: AnalysisRequest) -> Analysis:
     print(f"Print Speed: {print_speed}")
     print(f"Z Height: {z_height}")
 
-    analysis = Analysis(result=temperature*print_speed/10)
+    analysis = Analysis(result=temperature*print_speed/120)
 
     all_data = {"params": request.inputs, "results": analysis}
     print(request.inputs)
