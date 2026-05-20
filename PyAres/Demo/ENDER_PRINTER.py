@@ -79,18 +79,18 @@ class CustomPrinterHardware:
     def move_to(self, x: float, y: float, z: float):
         # Signature MUST match keys in move_schema exactly
         cmd = f"G0 X{x} Y{y} Z{z} F1000"
-        self.send_gcode(cmd)
+        print(self.send_gcode(cmd))
         self.current_x, self.current_y, self.current_z = x, y, z
         return {"status": "moved"}
 
-    def print(self, x=0.0, y=0.0):
+    def print(self, length):
         # Signature MUST match keys in print_schema exactly
         # Set z height beforehand.
         z_cmd = f"G1 Z{self.print_z_height} F1000"
-        self.send_gcode(z_cmd)
-        cmd = f"G1 X{x} Y{y} F{self.print_speed}"
-        self.send_gcode(cmd)
-        self.current_x, self.current_y = x, y
+        print(self.send_gcode(z_cmd))
+        cmd = f"G1 X{self.current_x + length} F{self.print_speed}"
+        print(self.send_gcode(cmd))
+        self.current_x += length
         return {"status": "printed"}
 
     # Setter functions for parameter space
@@ -176,8 +176,7 @@ if __name__ == "__main__":
 
         service.add_new_command(
             DeviceCommandDescriptor("Print", "XY Motion with extrusion",
-                                    {"x": DeviceSchemaEntry(AresDataType.NUMBER, "X", "mm"),
-                                     "y": DeviceSchemaEntry(AresDataType.NUMBER, "Y", "mm")}, {}),
+                                    {"length": DeviceSchemaEntry(AresDataType.NUMBER, "X", "mm")}, {}),
             printer.print
         )
 

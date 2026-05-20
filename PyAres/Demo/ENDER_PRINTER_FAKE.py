@@ -153,9 +153,8 @@ if __name__ == "__main__":
         )
 
         service.add_new_command(
-            DeviceCommandDescriptor("Print", "XY Motion with extrusion",
-                                    {"x": DeviceSchemaEntry(AresDataType.NUMBER, "X", "mm"),
-                                     "y": DeviceSchemaEntry(AresDataType.NUMBER, "Y", "mm")}, {}),
+            DeviceCommandDescriptor("Print", "Length to extrude",
+                                    {"length": DeviceSchemaEntry(AresDataType.NUMBER, "X", "mm")}, {}),
             printer.print
         )
 
