@@ -34,7 +34,6 @@ class FakePrinter:
             return (command.strip() + "\n")
 
     # Getter functions for parameter space
-    # Getter functions for parameter space
     def get_bed_temperature(self):
         raw = self.send_gcode("M105")
         # bed_match = re.search(r"B:([\d.]+)", raw)
@@ -79,18 +78,17 @@ class FakePrinter:
         self.send_gcode(z_cmd)
         cmd = f"G1 X{self.current_x + length} Y{self.current_y} F{self.print_speed}"
         self.send_gcode(cmd)
-        time.sleep((3 + length/self.print_speed) * self.rt)
         self.current_x += length
         return {"status": "printed"}
 
-    # Setter functions for parameter space
     def set_bed_temp(self, target_temp=0.0, wait=False):
         # Signature MUST match keys in temp_schema exactly
         cmd = "M190" if wait else "M140"
         self.send_gcode(f"{cmd} S{target_temp}")
-        if wait and self.rt:
+        if wait==True:
+            print("Waiting for printer bed to heat/cool")
             heat_or_cool = sign(target_temp - self.temp)
-            while not (target_temp - 0.5 < float(self.get_bed_temperature()) < target_temp + 0.5):
+            while not (target_temp - 0.5 < float(self.temp) < target_temp + 0.5):
                 time.sleep(1)
                 self.temp += heat_or_cool * 0.35 #Gradually move towards target temperature
         else:
@@ -135,9 +133,13 @@ class FakePrinter:
         return {"result": "Home Success"}
 
     # Probe bed for bed leveling. Intended for use with bilinear ABL, probing grid 2x2 points.
-    def probe_bed(self, x_min: float, x_max: float, y_min: float, y_max: float):
-        print(f"[Hardware] Probing bed from X {x_min} to X {x_max}, and from Y {y_min} to Y {y_max}.")
-        self.send_gcode(f"G29 F{y_min} B{y_max} L{x_min} R{x_max}")
+    def probe_bed(self,  y_size, x_size, y_min=0.0, x_min=0.0, use_current_position=True):
+        if use_current_position:
+            print(f"[Hardware] Probing bed from X {self.current_x} to X {self.current_x + x_size}, and from Y {self.current_y} to Y {self.current_y + y_size}.")
+            self.send_gcode(f"G29 F{self.current_y} B{self.current_y + y_size} L{self.current_x} R{self.current_x + x_size}")
+        else: 
+            print(f"[Hardware] Probing bed from X {x_min} to X {x_min + x_size}, and from Y {y_min} to Y {y_min + y_size}.")
+            self.send_gcode(f"G29 F{y_min} B{y_min + y_size} L{x_min} R{x_min + x_size}")
         return {"result": "Probe Success"}
 
     def get_state(self):
@@ -207,10 +209,11 @@ if __name__ == "__main__":
 
         # 4. Probe bed (Added an output schema to force the button to render)
         service.add_new_command(
-            DeviceCommandDescriptor("Probe Bed", "G28 Homing", {"x_min": DeviceSchemaEntry(AresDataType.NUMBER, "X minimum to probe", "mm"),
-                                                                "x_max": DeviceSchemaEntry(AresDataType.NUMBER, "X max of probing grid", "mm"),
+            DeviceCommandDescriptor("Probe Bed", "G28 Homing", {"y_size": DeviceSchemaEntry(AresDataType.NUMBER, "Y length of probing grid", "mm"),
+                                                                "x_size": DeviceSchemaEntry(AresDataType.NUMBER, "X length of probing grid", "mm"),
                                                                  "y_min": DeviceSchemaEntry(AresDataType.NUMBER, "Y minimum to probe", "mm"),
-                                                                "y_max": DeviceSchemaEntry(AresDataType.NUMBER, "Y max of probing grid", "mm")},
+                                                                 "x_min": DeviceSchemaEntry(AresDataType.NUMBER, "X minimum to probe", ""),
+                                                                 "use_current_position": DeviceSchemaEntry(AresDataType.BOOLEAN, "Use cureent position as min x and y of probing grid. Overrides min x and min y", "mm")},
                                     {"result": DeviceSchemaEntry(AresDataType.STRING, "Result", "")}),
             printer.probe_bed
         )
