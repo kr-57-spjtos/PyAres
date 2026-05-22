@@ -133,6 +133,12 @@ class FakePrinter:
         return {"result": "Home Success"}
 
     # Probe bed for bed leveling. Intended for use with bilinear ABL, probing grid 2x2 points.
+    def probe_bed(self,  y_size, x_size, y_min=0.0, x_min=0.0):
+        print(f"[Hardware] Probing bed from X {x_min} to X {x_min + x_size}, and from Y {y_min} to Y {y_min + y_size}.")
+        self.send_gcode(f"G29 F{y_min} B{y_min + y_size} L{x_min} R{x_min + x_size}")
+        return {"result": "Probe Success"}
+    
+    """
     def probe_bed(self,  y_size, x_size, y_min=0.0, x_min=0.0, use_current_position=True):
         if use_current_position:
             print(f"[Hardware] Probing bed from X {self.current_x} to X {self.current_x + x_size}, and from Y {self.current_y} to Y {self.current_y + y_size}.")
@@ -141,6 +147,7 @@ class FakePrinter:
             print(f"[Hardware] Probing bed from X {x_min} to X {x_min + x_size}, and from Y {y_min} to Y {y_min + y_size}.")
             self.send_gcode(f"G29 F{y_min} B{y_min + y_size} L{x_min} R{x_min + x_size}")
         return {"result": "Probe Success"}
+    """
 
     def get_state(self):
         actual_bed = self.get_bed_temperature()
@@ -212,11 +219,11 @@ if __name__ == "__main__":
             DeviceCommandDescriptor("Probe Bed", "G28 Homing", {"y_size": DeviceSchemaEntry(AresDataType.NUMBER, "Y length of probing grid", "mm"),
                                                                 "x_size": DeviceSchemaEntry(AresDataType.NUMBER, "X length of probing grid", "mm"),
                                                                  "y_min": DeviceSchemaEntry(AresDataType.NUMBER, "Y minimum to probe", "mm"),
-                                                                 "x_min": DeviceSchemaEntry(AresDataType.NUMBER, "X minimum to probe", ""),
-                                                                 "use_current_position": DeviceSchemaEntry(AresDataType.BOOLEAN, "Use cureent position as min x and y of probing grid. Overrides min x and min y", "mm")},
+                                                                 "x_min": DeviceSchemaEntry(AresDataType.NUMBER, "X minimum to probe", "mm")},
                                     {"result": DeviceSchemaEntry(AresDataType.STRING, "Result", "")}),
             printer.probe_bed
         )
+        #,"use_current_position": DeviceSchemaEntry(AresDataType.BOOLEAN, "Use current position as min x and y of probing grid. Overrides min x and min y", "")
 
         # 5. Wait for printer (Added an output schema to force the button to render)
         service.add_new_command(
