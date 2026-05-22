@@ -3,6 +3,14 @@
 import time
 import random
 from PyAres import AresDeviceService, AresDataType, DeviceSchemaEntry, DeviceCommandDescriptor
+import numpy as np
+
+def sign(number: float) -> int:
+    if number == 0:
+        return 0
+    if number > 0:
+        return 1
+    return -1
 
 class FakePrinter:
     def __init__(self, port="/dev/tty.usbserial-11220", baudrate=250000): # Port switched to work on Mac, may fail on Windows.
@@ -15,9 +23,11 @@ class FakePrinter:
         self.print_speed = 100.0
         self.temp = 25.0
         self.print_z_height = 5.0
+        self.rt = False # Set to true to simulate time taken for command completion
 
     def send_gcode(self, command: str):
         print(command.strip() + "\n")
+        time.sleep(0.5*self.rt) # Build in time for processing and communication
         if command == "M105":
             return f"T:{round(self.temp -3.4, 2)} /0.00 B:{round(self.temp, 2)} /0.00 @:0 B@:0"
         else:
@@ -56,7 +66,10 @@ class FakePrinter:
         # Signature MUST match keys in move_schema exactly
         cmd = f"G0 X{x} Y{y} Z{z} F1000"
         self.send_gcode(cmd)
+        distance = np.linalg.norm(np.array((self.current_x - x, self.current_y - y, self.current_z - z)))
+        time.sleep((round(distance * 3/50 ) + 3) * self.rt) # Wait for printer to finish moving
         self.current_x, self.current_y, self.current_z = x, y, z
+        print(self.send_gcode("M114"))
         return {"status": "moved"}
 
     def print(self, length: float):
@@ -66,15 +79,22 @@ class FakePrinter:
         self.send_gcode(z_cmd)
         cmd = f"G1 X{self.current_x + length} Y{self.current_y} F{self.print_speed}"
         self.send_gcode(cmd)
+        time.sleep((3 + length/self.print_speed) * self.rt)
         self.current_x += length
         return {"status": "printed"}
 
     # Setter functions for parameter space
     def set_bed_temp(self, target_temp=0.0, wait=False):
         # Signature MUST match keys in temp_schema exactly
-        self.temp = self.target_bed_temp = target_temp
         cmd = "M190" if wait else "M140"
         self.send_gcode(f"{cmd} S{target_temp}")
+        if wait and self.rt:
+            heat_or_cool = sign(target_temp - self.temp)
+            while not (target_temp - 0.5 < float(self.get_bed_temperature()) < target_temp + 0.5):
+                time.sleep(1)
+                self.temp += heat_or_cool * 0.35 #Gradually move towards target temperature
+        else:
+            self.temp = self.target_bed_temp = target_temp
         return {"status": "set"}
 
     def set_print_speed(self, speed: float):
@@ -188,9 +208,9 @@ if __name__ == "__main__":
         # 4. Probe bed (Added an output schema to force the button to render)
         service.add_new_command(
             DeviceCommandDescriptor("Probe Bed", "G28 Homing", {"x_min": DeviceSchemaEntry(AresDataType.NUMBER, "X minimum to probe", "mm"),
-                                                                "x_max": DeviceSchemaEntry(AresDataType.NUMBER, "X maximum to probe", "mm"),
+                                                                "x_max": DeviceSchemaEntry(AresDataType.NUMBER, "X max of probing grid", "mm"),
                                                                  "y_min": DeviceSchemaEntry(AresDataType.NUMBER, "Y minimum to probe", "mm"),
-                                                                "y_max": DeviceSchemaEntry(AresDataType.NUMBER, "Y maximum to probe", "mm")},
+                                                                "y_max": DeviceSchemaEntry(AresDataType.NUMBER, "Y max of probing grid", "mm")},
                                     {"result": DeviceSchemaEntry(AresDataType.STRING, "Result", "")}),
             printer.probe_bed
         )

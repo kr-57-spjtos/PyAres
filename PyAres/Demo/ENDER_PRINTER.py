@@ -28,29 +28,20 @@ class CustomPrinterHardware:
         except Exception as e:
             print(f"Connection error: {e}")
             return False
-        
-    def check_end(self, cmd: str, line: str) -> bool:
-        # It should be possible to add more ending checks based on command here
-        if cmd == "G28":
-            while True:
-                if line.find("X:") != -1:
-                    break
-        else: 
-            while True:
-                if "ok" in line.lower():
-                    break
-        return True
 
     def send_gcode(self, command):
         if not self.ser: return ""
         self.ser.write((command.strip() + "\n").encode('utf-8'))
         response = ""
+        if command == "G28":
+            time.sleep(25)
         while True:
             line = self.ser.readline().decode('utf-8', errors='ignore').strip()
             print(line) # Set errors to ignore to copy format of probe_and_print because it worked there
             response += line + "\n"
-            if self.check_end(command,line):
+            if "ok" in line.lower():
                 break
+        time.sleep(1) # Build in time for processing and communication
         return response
 
     # Getter functions for parameter space
@@ -119,6 +110,7 @@ class CustomPrinterHardware:
         self.target_bed_temp = target_temp
         cmd = "M190" if wait else "M140"
         self.send_gcode(f"{cmd} S{target_temp}")
+        print("gcode sent")
         # Experimental code to force waiting for bed to heat. 
         if wait==True:
             while not (target_temp - 0.5 < float(self.get_bed_temperature()) < target_temp + 0.5):
