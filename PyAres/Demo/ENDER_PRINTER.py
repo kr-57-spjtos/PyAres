@@ -101,7 +101,7 @@ class CustomPrinterHardware:
         # Signature MUST match keys in print_schema exactly
         # Set z height beforehand.
         # If self.wait is true, wait for bed temperature to reach target
-        z_cmd = f"G1 Z{self.print_z_height} F1000"
+        z_cmd = f"G0 Z{self.print_z_height} F1000"
         self.send_gcode(z_cmd)
         cmd = f"G1 X{self.current_x + length} F{self.print_speed}"
         self.send_gcode(cmd)

@@ -69,12 +69,13 @@ class FakePrinter:
         time.sleep((round(distance * 3/50 ) + 3) * self.rt) # Wait for printer to finish moving
         self.current_x, self.current_y, self.current_z = x, y, z
         print(self.send_gcode("M114"))
+        print(f"X:{self.current_x} Y:{self.current_y} Z:{self.current_z}")
         return {"status": "moved"}
 
     def print(self, length: float):
         # Signature MUST match keys in print_schema exactly
         # Set z height beforehand.
-        z_cmd = f"G1 Z{self.print_z_height} F1000"
+        z_cmd = f"G0 Z{self.print_z_height} F1000"
         self.send_gcode(z_cmd)
         cmd = f"G1 X{self.current_x + length} Y{self.current_y} F{self.print_speed}"
         self.send_gcode(cmd)

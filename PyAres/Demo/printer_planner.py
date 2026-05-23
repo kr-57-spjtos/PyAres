@@ -68,11 +68,12 @@ def gradual_planner(param: PlanningParameter) -> float:
 
 def x_place_planner(param: PlanningParameter) -> float:
     if (param.data_type == AresDataType.NUMBER):
+      print(param.param_history)
       if len(param.param_history) == 0:
         return param.minimum_value
-
-      previous_value = param.param_history[-1].planned_value
-
+      print(param.param_history[-1].planned_value)
+      previous_value = param.param_history[-1].planned_value  + 30
+      print(param.maximum_value)
       if previous_value > param.maximum_value:
         return param.minimum_value
 
@@ -89,8 +90,8 @@ def y_place_planner(param: PlanningParameter) -> float:
       return param.minimum_value
 
     previous_value = param.param_history[-1].planned_value
-    if len(param.param_history) % 6 == 0:
-      # Only increase y every 6 prints
+    if len(param.param_history) % 4 == 0:
+      # Only increase y every 4 prints
       previous_value += 15
 
     if previous_value > param.maximum_value:
