@@ -187,9 +187,9 @@ class CustomPrinterHardware:
         return {"result": "Home Success"}
 
     # Probe bed for bed leveling. Intended for use with bilinear ABL, probing grid 2x2 points.
-    def probe_bed(self, x_min: float, x_max: float, y_min: float, y_max: float):
-        print(f"[Hardware] Probing bed from X {x_min} to X {x_max}, and from Y {y_min} to Y {y_max}.")
-        self.send_gcode(f"G29 F{y_min} B{y_max} L{x_min} R{x_max}")
+    def probe_bed(self, y_size: float, y_min: float, x_size: float, x_min: float):
+        print(f"[Hardware] Probing bed from X {x_min} to X {x_min + x_size}, and from Y {y_min} to Y {y_min + y_size}.")
+        self.send_gcode(f"G29 F{y_min} B{y_min + y_size} L{x_min} R{x_min + x_size}")
         return {"result": "Probe Success"}
 
     def get_state(self):
@@ -260,10 +260,10 @@ if __name__ == "__main__":
 
         # 4. Probe bed (Added an output schema to force the button to render)
         service.add_new_command(
-            DeviceCommandDescriptor("Probe Bed", "G28 Homing", {"x_min": DeviceSchemaEntry(AresDataType.NUMBER, "X minimum to probe", "mm"),
-                                                                "x_max": DeviceSchemaEntry(AresDataType.NUMBER, "X maximum to probe", "mm"),
-                                                                 "y_min": DeviceSchemaEntry(AresDataType.NUMBER, "Y minimum to probe", "mm"),
-                                                                "y_max": DeviceSchemaEntry(AresDataType.NUMBER, "Y maximum to probe", "mm")},
+            DeviceCommandDescriptor("Probe Bed", "G28 Homing", {"y_size": DeviceSchemaEntry(AresDataType.NUMBER, "Y length to probe", "mm"),
+                                                                "y_min": DeviceSchemaEntry(AresDataType.NUMBER, "Y minimum to probe", "mm"),
+                                                                 "x_size": DeviceSchemaEntry(AresDataType.NUMBER, "X length to probe", "mm"),
+                                                                "x_min": DeviceSchemaEntry(AresDataType.NUMBER, "X minimum to probe", "mm")},
                                     {"result": DeviceSchemaEntry(AresDataType.STRING, "Result", "")}),
             printer.probe_bed
         )
