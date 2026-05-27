@@ -38,6 +38,7 @@ class CustomPrinterHardware:
             return False
 
     def send_gcode(self, command):
+        print(command)
         if not self.ser: return ""
         self.ser.write((command.strip() + "\n").encode('utf-8'))
         response = ""
@@ -116,7 +117,11 @@ class CustomPrinterHardware:
         cmd = "M190" if wait else "M140" 
         # which is more efficient because it lets experiment prep finish
         self.send_gcode(f"{cmd} S{target_temp}")
-        print(f"[Hardware] Setting bed temp to {target_temp} mm...")
+        if wait:
+            print(f"[Hardware] Setting bed temp to {target_temp} mm..., will wait for heating to continue")
+        else:
+            print(f"[Hardware] Setting bed temp to {target_temp} mm..., pausing briefly for queue but will not wait for heater")
+            time.sleep(2)
         # Experimental code to force waiting for bed to heat. 
         if wait:
             while not (self.target_bed_temp - 0.5 < float(self.get_bed_temperature()) < self.target_bed_temp + 0.5):
@@ -188,8 +193,16 @@ class CustomPrinterHardware:
 
     # Probe bed for bed leveling. Intended for use with bilinear ABL, probing grid 2x2 points.
     def probe_bed(self, y_size: float, y_min: float, x_size: float, x_min: float):
-        print(f"[Hardware] Probing bed from X {x_min} to X {x_min + x_size}, and from Y {y_min} to Y {y_min + y_size}.")
-        self.send_gcode(f"G29 F{y_min} B{y_min + y_size} L{x_min} R{x_min + x_size}")
+        cmd = f"G29 F{y_min} B{y_min + y_size} L{x_min} R{x_min + x_size}"
+        print(cmd)
+        if not self.ser: return ""
+        self.ser.write((cmd.strip() + "\n").encode('utf-8'))
+        while True:
+            line = self.ser.readline().decode('utf-8', errors='ignore').strip()
+            print(line) # Set errors to ignore to copy format of probe_and_print because it worked there
+            if "ok" in line.lower() or "x:" in line.lower():
+                break
+        time.sleep(1) # Build in time for processing and communication
         return {"result": "Probe Success"}
 
     def get_state(self):
